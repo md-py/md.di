@@ -32,51 +32,50 @@ class Container(StaticContainer):  # todo move to `md.di.container.live.Containe
 
         return self._definition_map[id_]
 
-    def _create_definition(self, class_: type, id_: str = None) -> Definition:
+    def _create_definition(self, class_: type = None, id_: str = None) -> Definition:
+        assert class_ or id_, 'At least one argument is required'
+
         if id_ is None:
             id_ = reference(id_=class_)
 
-        if id_.lower().endswith('interface'):  # try to autowire interface
-            if id_ not in self._configuration.definition_map:
-                raise Exception(f'Can not autowire interface `{id_!s}`')
-
-            class_ = self._configuration.definition_map[id_].class_
-
-        constructor = _inspect.signature(class_.__init__)
-
         if id_ in self._configuration.definition_map:
             definition = self._configuration.definition_map[id_]
+            factory = _inspect.signature(definition.class_.__init__ if definition.class_ else dereference(definition.factory))
 
             for argument in definition.arguments:  # validate definition
-                if argument not in constructor.parameters:
+                if argument not in factory.parameters:
                     raise InvalidDefinitionConfigurationException(
-                        f'Invalid definition: parameter `{argument!s}` not found in `{id_!s}`'
+                        f'Invalid definition: parameter `{argument!s}` found in `{id_!s}`'
                     )
 
-                if constructor.parameters[argument].annotation.__module__ == 'typing':
+                if factory.parameters[argument].annotation.__module__ == 'typing':
                     continue  # todo: implement check
 
                 if isinstance(definition.arguments[argument], Reference):
                     # fixme get definition by id and compare with typehint
                     continue
 
-                if not isinstance(definition.arguments[argument], constructor.parameters[argument].annotation):
+                if not isinstance(definition.arguments[argument], factory.parameters[argument].annotation):   # fixme !! typehint may be not provided
                     raise InvalidDefinitionConfigurationException(
                         f'Invalid definition: type of `{argument!s}` argument must be '
-                        f'`{reference(id_=constructor.parameters[argument].annotation)!s}`, '
+                        f'`{reference(id_=factory.parameters[argument].annotation)!s}`, '
                         f'`{reference(definition.arguments[argument])!s}` given.'
                     )
         else:
+            if id_.lower().endswith('interface'):
+                raise Exception(f'Can not autowire interface `{id_!s}`')
+
+            factory = _inspect.signature(class_.__init__)
             definition = Definition(class_=class_, public=True)
 
-        for argument in constructor.parameters:  # autowire
+        for argument in factory.parameters:  # autowire
             if argument == 'self':
                 continue
 
             if argument in definition.arguments:
                 continue  # skip wired argument (with definition)
 
-            argument_meta = constructor.parameters[argument]
+            argument_meta = factory.parameters[argument]
 
             if argument_meta.kind is _inspect.Parameter.VAR_KEYWORD or argument_meta.kind is _inspect.Parameter.VAR_POSITIONAL:
                 continue  # fixme

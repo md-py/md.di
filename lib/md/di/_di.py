@@ -40,12 +40,16 @@ class Definition:
     def __init__(
             self,
             class_: type,
+            factory: _typing.Union[None, _typing.Callable] = None,
             arguments: dict = None,
             public: bool = False,
             shared: bool = True,
             tags: _typing.List[_DefinitionTagType] = None,
     ):
-        self.class_: type = class_
+        assert (class_ is None) ^ (factory is None), "Only one of `factory` and `class` options allowed"
+
+        self.class_: _typing.Union[None, type] = class_
+        self.factory: _typing.Union[None, _typing.Callable] = factory
         self.arguments: dict = arguments if arguments else {}
         self.public: bool = public
         self.shared: bool = shared
@@ -151,8 +155,10 @@ class Container(psr.container.ContainerInterface):
 
         self._loading_service_list.pop()
 
+        factory = definition.class_ or dereference(definition.factory)
+
         try:
-            return definition.class_(**resolved_argument_map)
+            return factory(**resolved_argument_map)
         except TypeError as e:  # should never happen
             raise InvalidDefinitionConfigurationException(
                 f'Unable to initialize service `{id_!s}`. Definition has invalid configuration.'

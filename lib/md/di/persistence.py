@@ -30,12 +30,17 @@ def _resolve_definition_map(services_configuration: dict) -> _typing.Dict[str, m
     definition_map = {}
 
     for id_, definition_configuration in services_configuration.items():
-        class_qualname = id_
+        factory = None
+        if 'factory' in definition_configuration:
+            factory = definition_configuration['factory']
 
+        class_ = None
         if 'class' in definition_configuration:
-            class_qualname = definition_configuration['class']
-
-        class_ = md.di.dereference(class_qualname=class_qualname)
+            if factory:
+                raise Exception('Definition can not contain `class` & `factory` parameters simultaneously')
+            class_ = md.di.dereference(class_qualname=definition_configuration['class'])
+        elif not factory:
+            class_ = md.di.dereference(class_qualname=id_)
 
         arguments = None
         if 'arguments' in definition_configuration:
@@ -54,6 +59,7 @@ def _resolve_definition_map(services_configuration: dict) -> _typing.Dict[str, m
 
         definition_map[id_] = md.di.Definition(
             class_=class_,
+            factory=factory,
             arguments=arguments,
             public=public,
             tags=tags,
