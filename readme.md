@@ -1,98 +1,165 @@
-# Dependency injection container for Python
+# md.di
 
-Briefly, container is for automatically instantiating classes.
+md.di is a component that provides dependency injection 
+container & tools for python application. 
+Inspired by `symfony/dependency-injection`.
 
-## tl; dr
+## tl; dr 
 
-
-
-Example
-
-```python3
-# domain application example
-
-```
-
+Briefly, container is for automatically class instantiating.
 
 ```python3
-import md.di.container
-
-import your_domain.
-
-container = md.di.container.Container()
- = container.get()
+import typing
 
 
+# Email utility contracts
+class RenderEmailInterface:
+    """ Renders email message for recipient list (just basic example) """
+    def for_(self, address_list: typing.List[str]) -> str:
+        raise NotImplementedError
+
+
+class SendEmailInterface:
+    """ Sends email message for recipient list (just basic example) """
+    def to(self, address_list: typing.List[str], content: str, type_: str = 'text/plain') -> None:
+        raise NotImplementedError
+
+
+# Example implementation
+class BlockingSendEmail(SendEmailInterface):
+    def to(self, address_list: typing.List[str], content: str, type_: str = 'text/plain') -> None:
+        print(f'Email ({content}) has been sent to: ', ','.join(address_list))
+
+
+# Domain
+class Client:
+    def __init__(self, id_: str) -> None:
+        self.id = id_
+        self.email = f'client-{id_!s}@example.net'
+
+    def get_id(self) -> str:
+        return self.id
+
+    def get_email(self) -> str:
+        return self.email
+
+
+class ClientRepository:
+    def get(self, id_: str) -> Client:
+        return Client(id_=id_)
+
+
+# Domain logic
+class RenderWeeklyDigestNewsletterEmail:
+    def for_(self, address_list: typing.List[str]) -> str:
+        return (
+            'To: ' + ','.join(address_list) +
+            '\r\n\r\n'
+            'Hi, Weekly digest is example'
+        )
+
+
+class SendLetter:
+    def __init__(
+        self,
+        client_repository: ClientRepository,
+        render_email: RenderEmailInterface,
+        send_email: SendEmailInterface
+    ) -> None:
+        self._client_repository = client_repository
+        self._render_email = render_email
+        self._send_email = send_email
+
+    def for_client(self, id_: str) -> None:
+        client = self._client_repository.get(id_=id_)
+        address_list = [client.get_email()]
+        content = self._render_email.for_(address_list=address_list)
+        self._send_email.to(address_list=address_list, content=content)
+
+
+if __name__ == '__main__':
+    import md.di
+
+    # Setup container configuration
+    configuration = md.di.Configuration(
+        definition_map={
+            'ClientRepository': md.di.Definition(class_=ClientRepository),
+            'RenderWeeklyDigestNewsletterEmail': md.di.Definition(class_=RenderWeeklyDigestNewsletterEmail),
+            'BlockingSendEmail': md.di.Definition(class_=BlockingSendEmail),
+            'SendLetter.weekly_digest_newsletter': md.di.Definition(
+                public=True,
+                class_=SendLetter,
+                arguments={
+                    'client_repository': md.di.Reference(id_='ClientRepository'),
+                    'render_email': md.di.Reference(id_='RenderWeeklyDigestNewsletterEmail'),
+                    'send_email': md.di.Reference(id_='SendEmailInterface')
+                }
+            )
+        },
+        definition_alias_map={
+            'SendEmailInterface': 'BlockingSendEmail'
+        }
+    )
+
+    # Initialize container with configuration
+    container = md.di.Container(configuration=configuration)
+
+    # Make action 
+    send_weekly_digest_newsletter = container.get(id_='SendLetter.weekly_digest_newsletter')
+    assert isinstance(send_weekly_digest_newsletter, SendLetter)
+
+    send_weekly_digest_newsletter.for_client(id_='42')
 ```
 
-## About
+So called `live` container designed to create container configuration
+on fly, it's marked for development only and will be replaced
+with autowire tools in future release.
 
-This project is highly inspired by Symfony dependency injection container (Symfony is PHP web application framework) 
+```python3
+if __name__ == '__main__':
+    import md.di.live
 
-Easy instatiate service  
+    # Initialize container with configuration
+    container = md.di.live.Container(configuration=None)
 
+    # Make action 
+    send_weekly_digest_newsletter = container.get(id_='SendLetter.weekly_digest_newsletter')
+    assert isinstance(send_weekly_digest_newsletter, SendLetter)
 
-## Features:
-
-
-All classes are synthetic services be default.
-
-By default container tries to instantiate class as a service without configured definition for it, 
-in this case definition is created automatically at runtime.
-
-
-## How it works
-
-
-- Service is 
-
-
-to instantiate a class container should understand how to do it. This is possible to use instruction 
-that describes how to instantiate a service, it's called *Service Definition* 
-
-
-definition that built on fly (in runtime)
-
-
-## Architecture overview
-
-```dot
-digraph x { 
-  a -> b;
-}
+    send_weekly_digest_newsletter.for_client(id_='42')
 ```
 
+## [Documentation](docs/index.md)
 
-## Strategy (Roadmap):
+## Features
+
+| Feature                | Support                                           |
+|------------------------|---------------------------------------------------|
+| Container compilation  | No (but configuration processing)                 |
+| Definition decorator   | No (support is not planned)                       |
+| Definition inheritance | No (support is not planned)                       |
+| Lazy service           | No                                                |
+| Abstract service       | No (support is not planned)                       |
+| Expression language    | No (support is not planned)                       |
+| Thread-Safe            | Not yet                                           |
+| Service factory        | Yes                                               |
+| Autowiring             | Partly (via `live` container), support is planned |
+
+
+## Strategy (Roadmap)
 
 - few container instances support
 - cache
-- unit test
-- lazy services support
-- parent services
-- other injection type support
-  - setter injection
-  - property injection
-- `typing` support 
-- do not use `inspect` module
-
-## Compare with Symfony/container
-
-### Configuration
-
-- definition has no arguments indexed by number
-
-
-## Integration with application
-
-
-
-## Requirements
-
-- Python 3.5+
+- unit test coverage
+- `typing` annotation support
+- refuse from `inspect` module 
+- internal configuration processor
+  - circular reference  
+- thread-safe container
+- ... and many other
 
 ## Status
 
 Current status: development preview. not for production usage.
 
-## License
+## [License (MIT)](license.md)

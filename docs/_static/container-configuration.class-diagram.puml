@@ -1,0 +1,29 @@
+@startuml
+
+skinparam class {
+  BackgroundColor #ebebeb
+  ArrowColor      #333
+  BorderColor     #333
+}
+
+package md.di {
+  class md.di.Definition {
+    + class_: Optional[type]
+    + factory: Optional[FactoryType]
+    + arguments: Dict[str, Any]
+    + calls: List[DefinitionCallType]
+    + public: bool
+    + shared: bool
+    + tags: List[DefinitionTagType]
+  }
+
+  class md.di.Configuration {
+    + parameter_map: Dict[str, Any]
+    + definition_map: Dict[str, Definition]
+    + definition_alias_map: Dict[str, str]
+  }
+
+  md.di.Configuration o--> md.di.Definition
+}
+
+@enduml

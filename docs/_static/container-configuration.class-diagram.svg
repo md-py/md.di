@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="350px" preserveAspectRatio="none" style="width:279px;height:350px;background:#FFFFFF;" version="1.1" viewBox="0 0 279 350" width="279px" zoomAndPan="magnify"><defs><filter height="300%" id="f1t9it1ghmv1tc" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[4cd7b6e9d8726ab4e3cdd2f84d6aea7b]
+cluster md.di--><polygon fill="#FFFFFF" filter="url(#f1t9it1ghmv1tc)" points="16,6,62,6,69,28.4883,262,28.4883,262,343,16,343,16,6" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="16" x2="69" y1="28.4883" y2="28.4883"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="40" x="20" y="21.5352">md.di</text><!--MD5=[78d354bbc94732d57caecea7af665808]
+class md.di.Definition--><rect codeLine="9" fill="#EBEBEB" filter="url(#f1t9it1ghmv1tc)" height="138.6855" id="md.di.Definition" style="stroke:#333333;stroke-width:1.5;" width="190" x="44" y="188"/><ellipse cx="107.75" cy="204" fill="#ADD1B2" rx="11" ry="11" style="stroke:#333333;stroke-width:1.0;"/><path d="M110.2231,210.1431 Q109.6421,210.4419 109.0029,210.5913 Q108.3638,210.7407 107.6582,210.7407 Q105.1514,210.7407 103.8315,209.0889 Q102.5117,207.437 102.5117,204.3159 Q102.5117,201.1865 103.8315,199.5347 Q105.1514,197.8828 107.6582,197.8828 Q108.3638,197.8828 109.0112,198.0322 Q109.6587,198.1816 110.2231,198.4805 L110.2231,201.2031 Q109.5923,200.6221 108.9988,200.3523 Q108.4053,200.0825 107.7744,200.0825 Q106.4297,200.0825 105.7449,201.1492 Q105.0601,202.2158 105.0601,204.3159 Q105.0601,206.4077 105.7449,207.4744 Q106.4297,208.541 107.7744,208.541 Q108.4053,208.541 108.9988,208.2712 Q109.5923,208.0015 110.2231,207.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="54" x="128.25" y="208.5352">Definition</text><line style="stroke:#333333;stroke-width:1.5;" x1="45" x2="233" y1="220" y2="220"/><ellipse cx="55" cy="231" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="116" x="64" y="234.6348">class_: Optional[type]</text><ellipse cx="55" cy="243.9551" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="164" x="64" y="247.5898">factory: Optional[FactoryType]</text><ellipse cx="55" cy="256.9102" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="135" x="64" y="260.5449">arguments: Dict[str, Any]</text><ellipse cx="55" cy="269.8652" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="155" x="64" y="273.5">calls: List[DefinitionCallType]</text><ellipse cx="55" cy="282.8203" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="63" x="64" y="286.4551">public: bool</text><ellipse cx="55" cy="295.7754" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="67" x="64" y="299.4102">shared: bool</text><ellipse cx="55" cy="308.7305" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="154" x="64" y="312.3652">tags: List[DefinitionTagType]</text><line style="stroke:#333333;stroke-width:1.5;" x1="45" x2="233" y1="318.6855" y2="318.6855"/><!--MD5=[098ab75ddc32b5355e6b3781091b26a9]
+class md.di.Configuration--><rect codeLine="19" fill="#EBEBEB" filter="url(#f1t9it1ghmv1tc)" height="86.8652" id="md.di.Configuration" style="stroke:#333333;stroke-width:1.5;" width="214" x="32" y="41"/><ellipse cx="96.75" cy="57" fill="#ADD1B2" rx="11" ry="11" style="stroke:#333333;stroke-width:1.0;"/><path d="M99.2231,63.1431 Q98.6421,63.4419 98.0029,63.5913 Q97.3638,63.7407 96.6582,63.7407 Q94.1514,63.7407 92.8315,62.0889 Q91.5117,60.437 91.5117,57.3159 Q91.5117,54.1865 92.8315,52.5347 Q94.1514,50.8828 96.6582,50.8828 Q97.3638,50.8828 98.0112,51.0322 Q98.6587,51.1816 99.2231,51.4805 L99.2231,54.2031 Q98.5923,53.6221 97.9988,53.3523 Q97.4053,53.0825 96.7744,53.0825 Q95.4297,53.0825 94.7449,54.1492 Q94.0601,55.2158 94.0601,57.3159 Q94.0601,59.4077 94.7449,60.4744 Q95.4297,61.541 96.7744,61.541 Q97.4053,61.541 97.9988,61.2712 Q98.5923,61.0015 99.2231,60.4204 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="76" x="117.25" y="61.5352">Configuration</text><line style="stroke:#333333;stroke-width:1.5;" x1="33" x2="245" y1="73" y2="73"/><ellipse cx="43" cy="84" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="161" x="52" y="87.6348">parameter_map: Dict[str, Any]</text><ellipse cx="43" cy="96.9551" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="188" x="52" y="100.5898">definition_map: Dict[str, Definition]</text><ellipse cx="43" cy="109.9102" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="181" x="52" y="113.5449">definition_alias_map: Dict[str, str]</text><line style="stroke:#333333;stroke-width:1.5;" x1="33" x2="245" y1="119.8652" y2="119.8652"/><!--MD5=[b0fb38c89ae9d25215c139fdf57c6898]
+link md.di.Configuration to md.di.Definition--><path codeLine="25" d="M139,140.21 C139,140.21 139,163.36 139,174.62 " fill="none" id="md.di.Configuration-md.di.Definition" style="stroke:#333333;stroke-width:1.0;"/><polygon fill="#333333" points="139,187.75,143,178.75,139,182.75,135,178.75,139,187.75" style="stroke:#333333;stroke-width:1.0;"/><line style="stroke:#333333;stroke-width:1.0;" x1="139" x2="139" y1="182.75" y2="174.75"/><polygon fill="none" points="139,128.21,135,134.21,139,140.21,143,134.21,139,128.21" style="stroke:#333333;stroke-width:1.0;"/><!--MD5=[8568ebb1c328086bdfa322421d8c478f]
+@startuml
+
+skinparam class {
+  BackgroundColor #ebebeb
+  ArrowColor      #333
+  BorderColor     #333
+}
+
+package md.di {
+  class md.di.Definition {
+    + class_: Optional[type]
+    + factory: Optional[FactoryType]
+    + arguments: Dict[str, Any]
+    + calls: List[DefinitionCallType]
+    + public: bool
+    + shared: bool
+    + tags: List[DefinitionTagType]
+  }
+
+  class md.di.Configuration {
+    + parameter_map: Dict[str, Any]
+    + definition_map: Dict[str, Definition]
+    + definition_alias_map: Dict[str, str]
+  }
+
+  md.di.Configuration o- -> md.di.Definition
+}
+
+@enduml
+
+PlantUML version 1.2022.1(Tue Feb 01 21:19:58 MSK 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: ru
+Country: RU
+--></g></svg>

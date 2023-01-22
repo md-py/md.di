@@ -1,0 +1,51 @@
+@startuml
+
+skinparam class {
+  BackgroundColor #ebebeb
+  ArrowColor      #333
+  BorderColor     #000
+}
+
+skinparam lineType ortho
+
+package psr.container {
+  interface psr.container.ContainerInterface {
+     + get (id_: str) -> object
+     + has (id_: str) -> bool
+  }
+}
+
+package md.di {
+  class md.di.Container implements psr.container.ContainerInterface {
+    + get (id_: str) -> object
+    + has (id_: str) -> bool
+    ---
+    + set (id_: str, instance: object) -> None
+  }
+
+  class md.di.Reference {
+    + id: str
+  }
+
+  class md.di.Definition {
+    + class_: Optional[type]
+    + factory: Optional[FactoryType]
+    + arguments: Dict[str, Union[Reference, Any]]
+    + calls: List[DefinitionCallType]
+    + public: bool
+    + shared: bool
+    + tags: List[DefinitionTagType]
+  }
+
+  class md.di.Configuration {
+    + parameter_map: Dict[str, Any]
+    + definition_map: Dict[str, Definition]
+    + definition_alias_map: Dict[str, str]
+  }
+}
+
+md.di.Container *--> md.di.Configuration
+md.di.Configuration o--> md.di.Definition
+md.di.Definition o-> md.di.Reference
+
+@enduml

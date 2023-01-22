@@ -1,0 +1,16 @@
+digraph workflow {
+  node [shape=box];
+
+  configuration -> container;
+
+  subgraph cluster_configuration {
+    ir[label="intermediate representation"];
+
+    load -> ir -> definition;
+    definition -> processing;
+
+    processing -> validation;
+    validation -> optimization;
+
+  }
+}
